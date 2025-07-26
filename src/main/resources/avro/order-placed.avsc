@@ -8,6 +8,14 @@
             "type": "string"
         },
         {
+            "name": "productId",
+            "type": "string"
+        },
+        {
+            "name": "quantity",
+            "type": "int"
+        },
+        {
             "name": "email",
             "type": "string"
         },
