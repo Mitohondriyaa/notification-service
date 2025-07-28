@@ -1,6 +1,6 @@
 package io.github.mitohondriyaa.notification;
 
-import io.github.mitohondriyaa.order.event.OrderPlacedEvent;
+import io.github.mitohondriyaa.inventory.event.InventoryReservedEvent;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,34 +60,35 @@ class NotificationServiceApplicationTests {
 	}
 
 	KafkaListenerEndpointRegistry kafkaListenerEndpointRegistry;
-	KafkaTemplate<String, OrderPlacedEvent> kafkaTemplate;
+	KafkaTemplate<String, InventoryReservedEvent> kafkaTemplate;
 	@MockitoSpyBean
 	JavaMailSender mailSender;
 
 	NotificationServiceApplicationTests(
 		KafkaListenerEndpointRegistry kafkaListenerEndpointRegistry,
-		KafkaTemplate<String, OrderPlacedEvent> kafkaTemplate
+		KafkaTemplate<String, InventoryReservedEvent> kafkaTemplate
 	) {
 		this.kafkaListenerEndpointRegistry = kafkaListenerEndpointRegistry;
 		this.kafkaTemplate = kafkaTemplate;
 	}
 
 	@BeforeEach
-	void setUp() {
+	void setUp() throws InterruptedException {
 		kafkaListenerEndpointRegistry.getAllListenerContainers()
 			.forEach(Lifecycle::start);
+
+		Thread.sleep(5000);
 	}
 
 	@Test
 	void shouldSendNotification() {
-		OrderPlacedEvent orderPlacedEvent = new OrderPlacedEvent();
-		orderPlacedEvent.setOrderNumber(UUID.randomUUID().toString());
-		orderPlacedEvent.setProductId("6885edd749327c54f0627f8b");
-		orderPlacedEvent.setEmail("test@example.com");
-		orderPlacedEvent.setFirstName("Oleg");
-		orderPlacedEvent.setLastName("Kireev");
+		InventoryReservedEvent inventoryReservedEvent = new InventoryReservedEvent();
+		inventoryReservedEvent.setOrderNumber(UUID.randomUUID().toString());
+		inventoryReservedEvent.setEmail("test@example.com");
+		inventoryReservedEvent.setFirstName("Oleg");
+		inventoryReservedEvent.setLastName("Kireev");
 
-		kafkaTemplate.sendDefault(orderPlacedEvent);
+		kafkaTemplate.sendDefault(inventoryReservedEvent);
 
 		Awaitility.await()
 			.atMost(Duration.ofSeconds(5))

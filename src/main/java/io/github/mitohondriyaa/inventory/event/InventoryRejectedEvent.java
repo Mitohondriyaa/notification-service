@@ -3,7 +3,7 @@
  *
  * DO NOT EDIT DIRECTLY
  */
-package io.github.mitohondriyaa.order.event;
+package io.github.mitohondriyaa.inventory.event;
 
 import org.apache.avro.specific.SpecificData;
 import org.apache.avro.util.Utf8;
@@ -12,26 +12,26 @@ import org.apache.avro.message.BinaryMessageDecoder;
 import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
-public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = 6664341909093580363L;
+public class InventoryRejectedEvent extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
+  private static final long serialVersionUID = -8729448100929059264L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"OrderPlacedEvent\",\"namespace\":\"io.github.mitohondriyaa.order.event\",\"fields\":[{\"name\":\"orderNumber\",\"type\":\"string\"},{\"name\":\"productId\",\"type\":\"string\"},{\"name\":\"quantity\",\"type\":\"int\"},{\"name\":\"email\",\"type\":\"string\"},{\"name\":\"firstName\",\"type\":\"string\"},{\"name\":\"lastName\",\"type\":\"string\"}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"InventoryRejectedEvent\",\"namespace\":\"io.github.mitohondriyaa.inventory.event\",\"fields\":[{\"name\":\"orderNumber\",\"type\":\"string\"},{\"name\":\"email\",\"type\":\"string\"},{\"name\":\"firstName\",\"type\":\"string\"},{\"name\":\"lastName\",\"type\":\"string\"}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();
 
-  private static final BinaryMessageEncoder<OrderPlacedEvent> ENCODER =
+  private static final BinaryMessageEncoder<InventoryRejectedEvent> ENCODER =
       new BinaryMessageEncoder<>(MODEL$, SCHEMA$);
 
-  private static final BinaryMessageDecoder<OrderPlacedEvent> DECODER =
+  private static final BinaryMessageDecoder<InventoryRejectedEvent> DECODER =
       new BinaryMessageDecoder<>(MODEL$, SCHEMA$);
 
   /**
    * Return the BinaryMessageEncoder instance used by this class.
    * @return the message encoder used by this class
    */
-  public static BinaryMessageEncoder<OrderPlacedEvent> getEncoder() {
+  public static BinaryMessageEncoder<InventoryRejectedEvent> getEncoder() {
     return ENCODER;
   }
 
@@ -39,7 +39,7 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
    * Return the BinaryMessageDecoder instance used by this class.
    * @return the message decoder used by this class
    */
-  public static BinaryMessageDecoder<OrderPlacedEvent> getDecoder() {
+  public static BinaryMessageDecoder<InventoryRejectedEvent> getDecoder() {
     return DECODER;
   }
 
@@ -48,12 +48,12 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
    * @param resolver a {@link SchemaStore} used to find schemas by fingerprint
    * @return a BinaryMessageDecoder instance for this class backed by the given SchemaStore
    */
-  public static BinaryMessageDecoder<OrderPlacedEvent> createDecoder(SchemaStore resolver) {
+  public static BinaryMessageDecoder<InventoryRejectedEvent> createDecoder(SchemaStore resolver) {
     return new BinaryMessageDecoder<>(MODEL$, SCHEMA$, resolver);
   }
 
   /**
-   * Serializes this OrderPlacedEvent to a ByteBuffer.
+   * Serializes this InventoryRejectedEvent to a ByteBuffer.
    * @return a buffer holding the serialized data for this instance
    * @throws java.io.IOException if this instance could not be serialized
    */
@@ -62,19 +62,17 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
   }
 
   /**
-   * Deserializes a OrderPlacedEvent from a ByteBuffer.
+   * Deserializes a InventoryRejectedEvent from a ByteBuffer.
    * @param b a byte buffer holding serialized data for an instance of this class
-   * @return a OrderPlacedEvent instance decoded from the given buffer
+   * @return a InventoryRejectedEvent instance decoded from the given buffer
    * @throws java.io.IOException if the given bytes could not be deserialized into an instance of this class
    */
-  public static OrderPlacedEvent fromByteBuffer(
+  public static InventoryRejectedEvent fromByteBuffer(
       java.nio.ByteBuffer b) throws java.io.IOException {
     return DECODER.decode(b);
   }
 
   private java.lang.CharSequence orderNumber;
-  private java.lang.CharSequence productId;
-  private int quantity;
   private java.lang.CharSequence email;
   private java.lang.CharSequence firstName;
   private java.lang.CharSequence lastName;
@@ -84,21 +82,17 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
    * to their default values from the schema.  If that is desired then
    * one should use <code>newBuilder()</code>.
    */
-  public OrderPlacedEvent() {}
+  public InventoryRejectedEvent() {}
 
   /**
    * All-args constructor.
    * @param orderNumber The new value for orderNumber
-   * @param productId The new value for productId
-   * @param quantity The new value for quantity
    * @param email The new value for email
    * @param firstName The new value for firstName
    * @param lastName The new value for lastName
    */
-  public OrderPlacedEvent(java.lang.CharSequence orderNumber, java.lang.CharSequence productId, java.lang.Integer quantity, java.lang.CharSequence email, java.lang.CharSequence firstName, java.lang.CharSequence lastName) {
+  public InventoryRejectedEvent(java.lang.CharSequence orderNumber, java.lang.CharSequence email, java.lang.CharSequence firstName, java.lang.CharSequence lastName) {
     this.orderNumber = orderNumber;
-    this.productId = productId;
-    this.quantity = quantity;
     this.email = email;
     this.firstName = firstName;
     this.lastName = lastName;
@@ -115,11 +109,9 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
   public java.lang.Object get(int field$) {
     switch (field$) {
     case 0: return orderNumber;
-    case 1: return productId;
-    case 2: return quantity;
-    case 3: return email;
-    case 4: return firstName;
-    case 5: return lastName;
+    case 1: return email;
+    case 2: return firstName;
+    case 3: return lastName;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
@@ -130,11 +122,9 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
     case 0: orderNumber = (java.lang.CharSequence)value$; break;
-    case 1: productId = (java.lang.CharSequence)value$; break;
-    case 2: quantity = (java.lang.Integer)value$; break;
-    case 3: email = (java.lang.CharSequence)value$; break;
-    case 4: firstName = (java.lang.CharSequence)value$; break;
-    case 5: lastName = (java.lang.CharSequence)value$; break;
+    case 1: email = (java.lang.CharSequence)value$; break;
+    case 2: firstName = (java.lang.CharSequence)value$; break;
+    case 3: lastName = (java.lang.CharSequence)value$; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
@@ -154,40 +144,6 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
    */
   public void setOrderNumber(java.lang.CharSequence value) {
     this.orderNumber = value;
-  }
-
-  /**
-   * Gets the value of the 'productId' field.
-   * @return The value of the 'productId' field.
-   */
-  public java.lang.CharSequence getProductId() {
-    return productId;
-  }
-
-
-  /**
-   * Sets the value of the 'productId' field.
-   * @param value the value to set.
-   */
-  public void setProductId(java.lang.CharSequence value) {
-    this.productId = value;
-  }
-
-  /**
-   * Gets the value of the 'quantity' field.
-   * @return The value of the 'quantity' field.
-   */
-  public int getQuantity() {
-    return quantity;
-  }
-
-
-  /**
-   * Sets the value of the 'quantity' field.
-   * @param value the value to set.
-   */
-  public void setQuantity(int value) {
-    this.quantity = value;
   }
 
   /**
@@ -242,49 +198,47 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
   }
 
   /**
-   * Creates a new OrderPlacedEvent RecordBuilder.
-   * @return A new OrderPlacedEvent RecordBuilder
+   * Creates a new InventoryRejectedEvent RecordBuilder.
+   * @return A new InventoryRejectedEvent RecordBuilder
    */
-  public static io.github.mitohondriyaa.order.event.OrderPlacedEvent.Builder newBuilder() {
-    return new io.github.mitohondriyaa.order.event.OrderPlacedEvent.Builder();
+  public static io.github.mitohondriyaa.inventory.event.InventoryRejectedEvent.Builder newBuilder() {
+    return new io.github.mitohondriyaa.inventory.event.InventoryRejectedEvent.Builder();
   }
 
   /**
-   * Creates a new OrderPlacedEvent RecordBuilder by copying an existing Builder.
+   * Creates a new InventoryRejectedEvent RecordBuilder by copying an existing Builder.
    * @param other The existing builder to copy.
-   * @return A new OrderPlacedEvent RecordBuilder
+   * @return A new InventoryRejectedEvent RecordBuilder
    */
-  public static io.github.mitohondriyaa.order.event.OrderPlacedEvent.Builder newBuilder(io.github.mitohondriyaa.order.event.OrderPlacedEvent.Builder other) {
+  public static io.github.mitohondriyaa.inventory.event.InventoryRejectedEvent.Builder newBuilder(io.github.mitohondriyaa.inventory.event.InventoryRejectedEvent.Builder other) {
     if (other == null) {
-      return new io.github.mitohondriyaa.order.event.OrderPlacedEvent.Builder();
+      return new io.github.mitohondriyaa.inventory.event.InventoryRejectedEvent.Builder();
     } else {
-      return new io.github.mitohondriyaa.order.event.OrderPlacedEvent.Builder(other);
+      return new io.github.mitohondriyaa.inventory.event.InventoryRejectedEvent.Builder(other);
     }
   }
 
   /**
-   * Creates a new OrderPlacedEvent RecordBuilder by copying an existing OrderPlacedEvent instance.
+   * Creates a new InventoryRejectedEvent RecordBuilder by copying an existing InventoryRejectedEvent instance.
    * @param other The existing instance to copy.
-   * @return A new OrderPlacedEvent RecordBuilder
+   * @return A new InventoryRejectedEvent RecordBuilder
    */
-  public static io.github.mitohondriyaa.order.event.OrderPlacedEvent.Builder newBuilder(io.github.mitohondriyaa.order.event.OrderPlacedEvent other) {
+  public static io.github.mitohondriyaa.inventory.event.InventoryRejectedEvent.Builder newBuilder(io.github.mitohondriyaa.inventory.event.InventoryRejectedEvent other) {
     if (other == null) {
-      return new io.github.mitohondriyaa.order.event.OrderPlacedEvent.Builder();
+      return new io.github.mitohondriyaa.inventory.event.InventoryRejectedEvent.Builder();
     } else {
-      return new io.github.mitohondriyaa.order.event.OrderPlacedEvent.Builder(other);
+      return new io.github.mitohondriyaa.inventory.event.InventoryRejectedEvent.Builder(other);
     }
   }
 
   /**
-   * RecordBuilder for OrderPlacedEvent instances.
+   * RecordBuilder for InventoryRejectedEvent instances.
    */
   @org.apache.avro.specific.AvroGenerated
-  public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<OrderPlacedEvent>
-    implements org.apache.avro.data.RecordBuilder<OrderPlacedEvent> {
+  public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<InventoryRejectedEvent>
+    implements org.apache.avro.data.RecordBuilder<InventoryRejectedEvent> {
 
     private java.lang.CharSequence orderNumber;
-    private java.lang.CharSequence productId;
-    private int quantity;
     private java.lang.CharSequence email;
     private java.lang.CharSequence firstName;
     private java.lang.CharSequence lastName;
@@ -298,63 +252,47 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
      * Creates a Builder by copying an existing Builder.
      * @param other The existing Builder to copy.
      */
-    private Builder(io.github.mitohondriyaa.order.event.OrderPlacedEvent.Builder other) {
+    private Builder(io.github.mitohondriyaa.inventory.event.InventoryRejectedEvent.Builder other) {
       super(other);
       if (isValidValue(fields()[0], other.orderNumber)) {
         this.orderNumber = data().deepCopy(fields()[0].schema(), other.orderNumber);
         fieldSetFlags()[0] = other.fieldSetFlags()[0];
       }
-      if (isValidValue(fields()[1], other.productId)) {
-        this.productId = data().deepCopy(fields()[1].schema(), other.productId);
+      if (isValidValue(fields()[1], other.email)) {
+        this.email = data().deepCopy(fields()[1].schema(), other.email);
         fieldSetFlags()[1] = other.fieldSetFlags()[1];
       }
-      if (isValidValue(fields()[2], other.quantity)) {
-        this.quantity = data().deepCopy(fields()[2].schema(), other.quantity);
+      if (isValidValue(fields()[2], other.firstName)) {
+        this.firstName = data().deepCopy(fields()[2].schema(), other.firstName);
         fieldSetFlags()[2] = other.fieldSetFlags()[2];
       }
-      if (isValidValue(fields()[3], other.email)) {
-        this.email = data().deepCopy(fields()[3].schema(), other.email);
+      if (isValidValue(fields()[3], other.lastName)) {
+        this.lastName = data().deepCopy(fields()[3].schema(), other.lastName);
         fieldSetFlags()[3] = other.fieldSetFlags()[3];
-      }
-      if (isValidValue(fields()[4], other.firstName)) {
-        this.firstName = data().deepCopy(fields()[4].schema(), other.firstName);
-        fieldSetFlags()[4] = other.fieldSetFlags()[4];
-      }
-      if (isValidValue(fields()[5], other.lastName)) {
-        this.lastName = data().deepCopy(fields()[5].schema(), other.lastName);
-        fieldSetFlags()[5] = other.fieldSetFlags()[5];
       }
     }
 
     /**
-     * Creates a Builder by copying an existing OrderPlacedEvent instance
+     * Creates a Builder by copying an existing InventoryRejectedEvent instance
      * @param other The existing instance to copy.
      */
-    private Builder(io.github.mitohondriyaa.order.event.OrderPlacedEvent other) {
+    private Builder(io.github.mitohondriyaa.inventory.event.InventoryRejectedEvent other) {
       super(SCHEMA$, MODEL$);
       if (isValidValue(fields()[0], other.orderNumber)) {
         this.orderNumber = data().deepCopy(fields()[0].schema(), other.orderNumber);
         fieldSetFlags()[0] = true;
       }
-      if (isValidValue(fields()[1], other.productId)) {
-        this.productId = data().deepCopy(fields()[1].schema(), other.productId);
+      if (isValidValue(fields()[1], other.email)) {
+        this.email = data().deepCopy(fields()[1].schema(), other.email);
         fieldSetFlags()[1] = true;
       }
-      if (isValidValue(fields()[2], other.quantity)) {
-        this.quantity = data().deepCopy(fields()[2].schema(), other.quantity);
+      if (isValidValue(fields()[2], other.firstName)) {
+        this.firstName = data().deepCopy(fields()[2].schema(), other.firstName);
         fieldSetFlags()[2] = true;
       }
-      if (isValidValue(fields()[3], other.email)) {
-        this.email = data().deepCopy(fields()[3].schema(), other.email);
+      if (isValidValue(fields()[3], other.lastName)) {
+        this.lastName = data().deepCopy(fields()[3].schema(), other.lastName);
         fieldSetFlags()[3] = true;
-      }
-      if (isValidValue(fields()[4], other.firstName)) {
-        this.firstName = data().deepCopy(fields()[4].schema(), other.firstName);
-        fieldSetFlags()[4] = true;
-      }
-      if (isValidValue(fields()[5], other.lastName)) {
-        this.lastName = data().deepCopy(fields()[5].schema(), other.lastName);
-        fieldSetFlags()[5] = true;
       }
     }
 
@@ -372,7 +310,7 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
       * @param value The value of 'orderNumber'.
       * @return This builder.
       */
-    public io.github.mitohondriyaa.order.event.OrderPlacedEvent.Builder setOrderNumber(java.lang.CharSequence value) {
+    public io.github.mitohondriyaa.inventory.event.InventoryRejectedEvent.Builder setOrderNumber(java.lang.CharSequence value) {
       validate(fields()[0], value);
       this.orderNumber = value;
       fieldSetFlags()[0] = true;
@@ -392,88 +330,9 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
       * Clears the value of the 'orderNumber' field.
       * @return This builder.
       */
-    public io.github.mitohondriyaa.order.event.OrderPlacedEvent.Builder clearOrderNumber() {
+    public io.github.mitohondriyaa.inventory.event.InventoryRejectedEvent.Builder clearOrderNumber() {
       orderNumber = null;
       fieldSetFlags()[0] = false;
-      return this;
-    }
-
-    /**
-      * Gets the value of the 'productId' field.
-      * @return The value.
-      */
-    public java.lang.CharSequence getProductId() {
-      return productId;
-    }
-
-
-    /**
-      * Sets the value of the 'productId' field.
-      * @param value The value of 'productId'.
-      * @return This builder.
-      */
-    public io.github.mitohondriyaa.order.event.OrderPlacedEvent.Builder setProductId(java.lang.CharSequence value) {
-      validate(fields()[1], value);
-      this.productId = value;
-      fieldSetFlags()[1] = true;
-      return this;
-    }
-
-    /**
-      * Checks whether the 'productId' field has been set.
-      * @return True if the 'productId' field has been set, false otherwise.
-      */
-    public boolean hasProductId() {
-      return fieldSetFlags()[1];
-    }
-
-
-    /**
-      * Clears the value of the 'productId' field.
-      * @return This builder.
-      */
-    public io.github.mitohondriyaa.order.event.OrderPlacedEvent.Builder clearProductId() {
-      productId = null;
-      fieldSetFlags()[1] = false;
-      return this;
-    }
-
-    /**
-      * Gets the value of the 'quantity' field.
-      * @return The value.
-      */
-    public int getQuantity() {
-      return quantity;
-    }
-
-
-    /**
-      * Sets the value of the 'quantity' field.
-      * @param value The value of 'quantity'.
-      * @return This builder.
-      */
-    public io.github.mitohondriyaa.order.event.OrderPlacedEvent.Builder setQuantity(int value) {
-      validate(fields()[2], value);
-      this.quantity = value;
-      fieldSetFlags()[2] = true;
-      return this;
-    }
-
-    /**
-      * Checks whether the 'quantity' field has been set.
-      * @return True if the 'quantity' field has been set, false otherwise.
-      */
-    public boolean hasQuantity() {
-      return fieldSetFlags()[2];
-    }
-
-
-    /**
-      * Clears the value of the 'quantity' field.
-      * @return This builder.
-      */
-    public io.github.mitohondriyaa.order.event.OrderPlacedEvent.Builder clearQuantity() {
-      fieldSetFlags()[2] = false;
       return this;
     }
 
@@ -491,10 +350,10 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
       * @param value The value of 'email'.
       * @return This builder.
       */
-    public io.github.mitohondriyaa.order.event.OrderPlacedEvent.Builder setEmail(java.lang.CharSequence value) {
-      validate(fields()[3], value);
+    public io.github.mitohondriyaa.inventory.event.InventoryRejectedEvent.Builder setEmail(java.lang.CharSequence value) {
+      validate(fields()[1], value);
       this.email = value;
-      fieldSetFlags()[3] = true;
+      fieldSetFlags()[1] = true;
       return this;
     }
 
@@ -503,7 +362,7 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
       * @return True if the 'email' field has been set, false otherwise.
       */
     public boolean hasEmail() {
-      return fieldSetFlags()[3];
+      return fieldSetFlags()[1];
     }
 
 
@@ -511,9 +370,9 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
       * Clears the value of the 'email' field.
       * @return This builder.
       */
-    public io.github.mitohondriyaa.order.event.OrderPlacedEvent.Builder clearEmail() {
+    public io.github.mitohondriyaa.inventory.event.InventoryRejectedEvent.Builder clearEmail() {
       email = null;
-      fieldSetFlags()[3] = false;
+      fieldSetFlags()[1] = false;
       return this;
     }
 
@@ -531,10 +390,10 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
       * @param value The value of 'firstName'.
       * @return This builder.
       */
-    public io.github.mitohondriyaa.order.event.OrderPlacedEvent.Builder setFirstName(java.lang.CharSequence value) {
-      validate(fields()[4], value);
+    public io.github.mitohondriyaa.inventory.event.InventoryRejectedEvent.Builder setFirstName(java.lang.CharSequence value) {
+      validate(fields()[2], value);
       this.firstName = value;
-      fieldSetFlags()[4] = true;
+      fieldSetFlags()[2] = true;
       return this;
     }
 
@@ -543,7 +402,7 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
       * @return True if the 'firstName' field has been set, false otherwise.
       */
     public boolean hasFirstName() {
-      return fieldSetFlags()[4];
+      return fieldSetFlags()[2];
     }
 
 
@@ -551,9 +410,9 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
       * Clears the value of the 'firstName' field.
       * @return This builder.
       */
-    public io.github.mitohondriyaa.order.event.OrderPlacedEvent.Builder clearFirstName() {
+    public io.github.mitohondriyaa.inventory.event.InventoryRejectedEvent.Builder clearFirstName() {
       firstName = null;
-      fieldSetFlags()[4] = false;
+      fieldSetFlags()[2] = false;
       return this;
     }
 
@@ -571,10 +430,10 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
       * @param value The value of 'lastName'.
       * @return This builder.
       */
-    public io.github.mitohondriyaa.order.event.OrderPlacedEvent.Builder setLastName(java.lang.CharSequence value) {
-      validate(fields()[5], value);
+    public io.github.mitohondriyaa.inventory.event.InventoryRejectedEvent.Builder setLastName(java.lang.CharSequence value) {
+      validate(fields()[3], value);
       this.lastName = value;
-      fieldSetFlags()[5] = true;
+      fieldSetFlags()[3] = true;
       return this;
     }
 
@@ -583,7 +442,7 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
       * @return True if the 'lastName' field has been set, false otherwise.
       */
     public boolean hasLastName() {
-      return fieldSetFlags()[5];
+      return fieldSetFlags()[3];
     }
 
 
@@ -591,23 +450,21 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
       * Clears the value of the 'lastName' field.
       * @return This builder.
       */
-    public io.github.mitohondriyaa.order.event.OrderPlacedEvent.Builder clearLastName() {
+    public io.github.mitohondriyaa.inventory.event.InventoryRejectedEvent.Builder clearLastName() {
       lastName = null;
-      fieldSetFlags()[5] = false;
+      fieldSetFlags()[3] = false;
       return this;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public OrderPlacedEvent build() {
+    public InventoryRejectedEvent build() {
       try {
-        OrderPlacedEvent record = new OrderPlacedEvent();
+        InventoryRejectedEvent record = new InventoryRejectedEvent();
         record.orderNumber = fieldSetFlags()[0] ? this.orderNumber : (java.lang.CharSequence) defaultValue(fields()[0]);
-        record.productId = fieldSetFlags()[1] ? this.productId : (java.lang.CharSequence) defaultValue(fields()[1]);
-        record.quantity = fieldSetFlags()[2] ? this.quantity : (java.lang.Integer) defaultValue(fields()[2]);
-        record.email = fieldSetFlags()[3] ? this.email : (java.lang.CharSequence) defaultValue(fields()[3]);
-        record.firstName = fieldSetFlags()[4] ? this.firstName : (java.lang.CharSequence) defaultValue(fields()[4]);
-        record.lastName = fieldSetFlags()[5] ? this.lastName : (java.lang.CharSequence) defaultValue(fields()[5]);
+        record.email = fieldSetFlags()[1] ? this.email : (java.lang.CharSequence) defaultValue(fields()[1]);
+        record.firstName = fieldSetFlags()[2] ? this.firstName : (java.lang.CharSequence) defaultValue(fields()[2]);
+        record.lastName = fieldSetFlags()[3] ? this.lastName : (java.lang.CharSequence) defaultValue(fields()[3]);
         return record;
       } catch (org.apache.avro.AvroMissingFieldException e) {
         throw e;
@@ -618,8 +475,8 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
   }
 
   @SuppressWarnings("unchecked")
-  private static final org.apache.avro.io.DatumWriter<OrderPlacedEvent>
-    WRITER$ = (org.apache.avro.io.DatumWriter<OrderPlacedEvent>)MODEL$.createDatumWriter(SCHEMA$);
+  private static final org.apache.avro.io.DatumWriter<InventoryRejectedEvent>
+    WRITER$ = (org.apache.avro.io.DatumWriter<InventoryRejectedEvent>)MODEL$.createDatumWriter(SCHEMA$);
 
   @Override public void writeExternal(java.io.ObjectOutput out)
     throws java.io.IOException {
@@ -627,8 +484,8 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
   }
 
   @SuppressWarnings("unchecked")
-  private static final org.apache.avro.io.DatumReader<OrderPlacedEvent>
-    READER$ = (org.apache.avro.io.DatumReader<OrderPlacedEvent>)MODEL$.createDatumReader(SCHEMA$);
+  private static final org.apache.avro.io.DatumReader<InventoryRejectedEvent>
+    READER$ = (org.apache.avro.io.DatumReader<InventoryRejectedEvent>)MODEL$.createDatumReader(SCHEMA$);
 
   @Override public void readExternal(java.io.ObjectInput in)
     throws java.io.IOException {
@@ -641,10 +498,6 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
     throws java.io.IOException
   {
     out.writeString(this.orderNumber);
-
-    out.writeString(this.productId);
-
-    out.writeInt(this.quantity);
 
     out.writeString(this.email);
 
@@ -661,10 +514,6 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
     if (fieldOrder == null) {
       this.orderNumber = in.readString(this.orderNumber instanceof Utf8 ? (Utf8)this.orderNumber : null);
 
-      this.productId = in.readString(this.productId instanceof Utf8 ? (Utf8)this.productId : null);
-
-      this.quantity = in.readInt();
-
       this.email = in.readString(this.email instanceof Utf8 ? (Utf8)this.email : null);
 
       this.firstName = in.readString(this.firstName instanceof Utf8 ? (Utf8)this.firstName : null);
@@ -672,29 +521,21 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
       this.lastName = in.readString(this.lastName instanceof Utf8 ? (Utf8)this.lastName : null);
 
     } else {
-      for (int i = 0; i < 6; i++) {
+      for (int i = 0; i < 4; i++) {
         switch (fieldOrder[i].pos()) {
         case 0:
           this.orderNumber = in.readString(this.orderNumber instanceof Utf8 ? (Utf8)this.orderNumber : null);
           break;
 
         case 1:
-          this.productId = in.readString(this.productId instanceof Utf8 ? (Utf8)this.productId : null);
-          break;
-
-        case 2:
-          this.quantity = in.readInt();
-          break;
-
-        case 3:
           this.email = in.readString(this.email instanceof Utf8 ? (Utf8)this.email : null);
           break;
 
-        case 4:
+        case 2:
           this.firstName = in.readString(this.firstName instanceof Utf8 ? (Utf8)this.firstName : null);
           break;
 
-        case 5:
+        case 3:
           this.lastName = in.readString(this.lastName instanceof Utf8 ? (Utf8)this.lastName : null);
           break;
 
