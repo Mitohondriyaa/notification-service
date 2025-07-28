@@ -82,6 +82,7 @@ class NotificationServiceApplicationTests {
 	void shouldSendNotification() {
 		OrderPlacedEvent orderPlacedEvent = new OrderPlacedEvent();
 		orderPlacedEvent.setOrderNumber(UUID.randomUUID().toString());
+		orderPlacedEvent.setProductId("6885edd749327c54f0627f8b");
 		orderPlacedEvent.setEmail("test@example.com");
 		orderPlacedEvent.setFirstName("Oleg");
 		orderPlacedEvent.setLastName("Kireev");
