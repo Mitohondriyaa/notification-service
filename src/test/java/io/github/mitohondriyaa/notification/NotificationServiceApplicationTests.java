@@ -1,6 +1,5 @@
 package io.github.mitohondriyaa.notification;
 
-import io.github.mitohondriyaa.notification.config.TestSecurityConfig;
 import io.github.mitohondriyaa.order.event.OrderPlacedEvent;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -9,12 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.Lifecycle;
-import org.springframework.context.annotation.Import;
 import org.springframework.kafka.config.KafkaListenerEndpointRegistry;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessagePreparator;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.TestConstructor;
@@ -32,8 +29,6 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
-@ActiveProfiles("test")
-@Import(TestSecurityConfig.class)
 class NotificationServiceApplicationTests {
 	static Network network = Network.newNetwork();
 	@ServiceConnection
