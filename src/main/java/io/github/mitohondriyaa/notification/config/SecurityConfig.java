@@ -1,4 +1,4 @@
-package io.github.mitohondriyaa.config;
+package io.github.mitohondriyaa.notification.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
