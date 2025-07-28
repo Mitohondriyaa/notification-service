@@ -1,7 +1,7 @@
 package io.github.mitohondriyaa.notification.service;
 
-import io.github.mitohondriyaa.order.event.OrderCancelledEvent;
-import io.github.mitohondriyaa.order.event.OrderPlacedEvent;
+import io.github.mitohondriyaa.inventory.event.InventoryRejectedEvent;
+import io.github.mitohondriyaa.inventory.event.InventoryReservedEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -14,17 +14,17 @@ import org.springframework.stereotype.Service;
 public class NotificationService {
     private final JavaMailSender mailSender;
 
-    @KafkaListener(topics = "order-placed")
-    public void orderPlaced(OrderPlacedEvent orderPlacedEvent) {
+    @KafkaListener(topics = "inventory-reserved")
+    public void orderPlaced(InventoryReservedEvent inventoryReservedEvent) {
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
 
             messageHelper.setFrom("mitohondriyaa@gmail.com");
-            messageHelper.setTo(orderPlacedEvent.getEmail().toString());
+            messageHelper.setTo(inventoryReservedEvent.getEmail().toString());
             messageHelper.setSubject(
                 String.format(
                     "Your order #%s has been placed successfully!",
-                    orderPlacedEvent.getOrderNumber()
+                    inventoryReservedEvent.getOrderNumber()
                 )
             );
             messageHelper.setText(
@@ -39,9 +39,9 @@ public class NotificationService {
                         Best regards,
                         Mitohondriyaa
                         """,
-                    orderPlacedEvent.getFirstName().toString(),
-                    orderPlacedEvent.getLastName().toString(),
-                    orderPlacedEvent.getOrderNumber()
+                    inventoryReservedEvent.getFirstName().toString(),
+                    inventoryReservedEvent.getLastName().toString(),
+                    inventoryReservedEvent.getOrderNumber()
                 )
             );
         };
@@ -49,17 +49,17 @@ public class NotificationService {
         mailSender.send(messagePreparator);
     }
 
-    @KafkaListener(topics = "order-cancelled")
-    public void orderCancelled(OrderCancelledEvent orderCancelledEvent) {
+    @KafkaListener(topics = "inventory-rejected")
+    public void orderCancelled(InventoryRejectedEvent inventoryRejectedEvent) {
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
 
             messageHelper.setFrom("mitohondriyaa@gmail.com");
-            messageHelper.setTo(orderCancelledEvent.getEmail().toString());
+            messageHelper.setTo(inventoryRejectedEvent.getEmail().toString());
             messageHelper.setSubject(
                 String.format(
                     "Your order #%s has been cancelled!",
-                    orderCancelledEvent.getOrderNumber()
+                    inventoryRejectedEvent.getOrderNumber()
                 )
             );
             messageHelper.setText(
@@ -72,9 +72,9 @@ public class NotificationService {
                         Best regards,
                         Mitohondriyaa
                         """,
-                    orderCancelledEvent.getFirstName().toString(),
-                    orderCancelledEvent.getLastName().toString(),
-                    orderCancelledEvent.getOrderNumber()
+                    inventoryRejectedEvent.getFirstName().toString(),
+                    inventoryRejectedEvent.getLastName().toString(),
+                    inventoryRejectedEvent.getOrderNumber()
                 )
             );
         };

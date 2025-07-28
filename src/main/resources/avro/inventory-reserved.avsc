@@ -1,19 +1,11 @@
 {
     "type": "record",
-    "name": "OrderCancelledEvent",
-    "namespace": "io.github.mitohondriyaa.order.event",
+    "name": "InventoryReservedEvent",
+    "namespace": "io.github.mitohondriyaa.inventory.event",
     "fields": [
         {
             "name": "orderNumber",
             "type": "string"
-        },
-        {
-            "name": "productId",
-            "type": "string"
-        },
-        {
-            "name": "quantity",
-            "type": "int"
         },
         {
             "name": "email",
