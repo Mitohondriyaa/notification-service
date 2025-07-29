@@ -1,6 +1,7 @@
 package io.github.mitohondriyaa.notification;
 
 import io.github.mitohondriyaa.inventory.event.InventoryReservedEvent;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,6 +30,7 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
+@RequiredArgsConstructor
 class NotificationServiceApplicationTests {
 	static Network network = Network.newNetwork();
 	@ServiceConnection
@@ -45,6 +47,10 @@ class NotificationServiceApplicationTests {
 		.withNetwork(network)
 		.withNetworkAliases("schema-registry")
 		.waitingFor(Wait.forHttp("/subjects"));
+	final KafkaListenerEndpointRegistry kafkaListenerEndpointRegistry;
+	final KafkaTemplate<String, InventoryReservedEvent> kafkaTemplate;
+	@MockitoSpyBean
+	JavaMailSender mailSender;
 
 	static {
 		kafkaContainer.start();
@@ -57,19 +63,6 @@ class NotificationServiceApplicationTests {
 			() -> "http://localhost:" + schemaRegistryContainer.getMappedPort(8081));
 		registry.add("spring.kafka.consumer.properties.schema.registry.url",
 			() -> "http://localhost:" + schemaRegistryContainer.getMappedPort(8081));
-	}
-
-	KafkaListenerEndpointRegistry kafkaListenerEndpointRegistry;
-	KafkaTemplate<String, InventoryReservedEvent> kafkaTemplate;
-	@MockitoSpyBean
-	JavaMailSender mailSender;
-
-	NotificationServiceApplicationTests(
-		KafkaListenerEndpointRegistry kafkaListenerEndpointRegistry,
-		KafkaTemplate<String, InventoryReservedEvent> kafkaTemplate
-	) {
-		this.kafkaListenerEndpointRegistry = kafkaListenerEndpointRegistry;
-		this.kafkaTemplate = kafkaTemplate;
 	}
 
 	@BeforeEach
