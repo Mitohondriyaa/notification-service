@@ -1,0 +1,8 @@
+services:
+  redis_idempotency:
+    image: redis:8.0
+    container_name: redis_idempotency_notification
+    ports:
+      - "6381:6379"
+    volumes:
+      - ./redis-idempotency-data:/data
