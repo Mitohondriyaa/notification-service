@@ -1,6 +1,7 @@
 package io.github.mitohondriyaa.notification;
 
 import com.redis.testcontainers.RedisContainer;
+import io.github.mitohondriyaa.inventory.event.InventoryRejectedEvent;
 import io.github.mitohondriyaa.inventory.event.InventoryReservedEvent;
 import io.github.mitohondriyaa.notification.config.TestRedisConfig;
 import lombok.RequiredArgsConstructor;
@@ -88,7 +89,7 @@ class NotificationServiceApplicationTests {
 	}
 
 	@Test
-	void shouldSendNotification() {
+	void shouldSendInventoryReservedNotification() {
 		InventoryReservedEvent inventoryReservedEvent = new InventoryReservedEvent();
 		inventoryReservedEvent.setOrderNumber(UUID.randomUUID().toString());
 		inventoryReservedEvent.setEmail("test@example.com");
@@ -97,6 +98,27 @@ class NotificationServiceApplicationTests {
 
 		ProducerRecord<String, Object> producerRecord
 			= new ProducerRecord<>("inventory-reserved", inventoryReservedEvent);
+		producerRecord.headers().add("messageId", UUID.randomUUID().toString().getBytes());
+
+		kafkaTemplate.send(producerRecord);
+
+		Awaitility.await()
+			.atMost(Duration.ofSeconds(5))
+			.untilAsserted(() ->
+				verify(mailSender).send(any(MimeMessagePreparator.class))
+			);
+	}
+
+	@Test
+	void shouldSendInventoryRejectedNotification() {
+		InventoryRejectedEvent inventoryRejectedEvent = new InventoryRejectedEvent();
+		inventoryRejectedEvent.setOrderNumber(UUID.randomUUID().toString());
+		inventoryRejectedEvent.setEmail("test@example.com");
+		inventoryRejectedEvent.setFirstName("Oleg");
+		inventoryRejectedEvent.setLastName("Kireev");
+
+		ProducerRecord<String, Object> producerRecord
+			= new ProducerRecord<>("inventory-rejected", inventoryRejectedEvent);
 		producerRecord.headers().add("messageId", UUID.randomUUID().toString().getBytes());
 
 		kafkaTemplate.send(producerRecord);
