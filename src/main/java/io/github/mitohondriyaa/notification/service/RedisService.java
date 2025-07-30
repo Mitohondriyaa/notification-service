@@ -14,11 +14,7 @@ public class RedisService {
     @Value("${message-id.ttl.minutes}")
     private Integer messageIdTtlMinutes;
 
-    public void setValue(String key) {
-        stringRedisTemplate.opsForValue().set(key, "", Duration.ofMinutes(messageIdTtlMinutes));
-    }
-
-    public Boolean hasKey(String key) {
-        return stringRedisTemplate.hasKey(key);
+    public Boolean setValue(String key) {
+        return stringRedisTemplate.opsForValue().setIfAbsent(key, "", Duration.ofMinutes(messageIdTtlMinutes));
     }
 }
