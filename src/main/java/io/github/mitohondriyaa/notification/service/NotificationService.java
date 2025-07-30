@@ -22,7 +22,7 @@ public class NotificationService {
         @Payload InventoryReservedEvent inventoryReservedEvent,
         @Header("messageId") String messageId
     ) {
-        if (!redisService.setValue(messageId)) {
+        if (redisService.setValue(messageId)) {
             MimeMessagePreparator messagePreparator = mimeMessage -> {
                 MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
 
