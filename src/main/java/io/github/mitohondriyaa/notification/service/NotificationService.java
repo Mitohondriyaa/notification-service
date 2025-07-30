@@ -18,7 +18,7 @@ public class NotificationService {
     private final RedisService redisService;
 
     @KafkaListener(topics = "inventory-reserved")
-    public void orderPlaced(
+    public void reserveInventory(
         @Payload InventoryReservedEvent inventoryReservedEvent,
         @Header("messageId") String messageId
     ) {
@@ -58,11 +58,11 @@ public class NotificationService {
     }
 
     @KafkaListener(topics = "inventory-rejected")
-    public void orderCancelled(
+    public void rejectInventory(
         @Payload InventoryRejectedEvent inventoryRejectedEvent,
         @Header("messageId") String messageId
     ) {
-        if (!redisService.setValue(messageId)) {
+        if (redisService.setValue(messageId)) {
             MimeMessagePreparator messagePreparator = mimeMessage -> {
                 MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
 
