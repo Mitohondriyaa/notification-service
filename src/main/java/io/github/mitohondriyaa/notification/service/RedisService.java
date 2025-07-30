@@ -9,12 +9,16 @@ import java.time.Duration;
 
 @Service
 @RequiredArgsConstructor
-public class RedisServiece {
+public class RedisService {
     private final StringRedisTemplate stringRedisTemplate;
     @Value("${message-id.ttl.minutes}")
     private Integer messageIdTtlMinutes;
 
     public void setValue(String key) {
         stringRedisTemplate.opsForValue().set(key, "", Duration.ofMinutes(messageIdTtlMinutes));
+    }
+
+    public Boolean hasKey(String key) {
+        return stringRedisTemplate.hasKey(key);
     }
 }
