@@ -58,35 +58,40 @@ public class NotificationService {
     }
 
     @KafkaListener(topics = "inventory-rejected")
-    public void orderCancelled(InventoryRejectedEvent inventoryRejectedEvent) {
-        MimeMessagePreparator messagePreparator = mimeMessage -> {
-            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+    public void orderCancelled(
+        @Payload InventoryRejectedEvent inventoryRejectedEvent,
+        @Header("messageId") String messageId
+    ) {
+        if (!redisService.setValue(messageId)) {
+            MimeMessagePreparator messagePreparator = mimeMessage -> {
+                MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
 
-            messageHelper.setFrom("mitohondriyaa@gmail.com");
-            messageHelper.setTo(inventoryRejectedEvent.getEmail().toString());
-            messageHelper.setSubject(
-                String.format(
-                    "Your order #%s has been cancelled!",
-                    inventoryRejectedEvent.getOrderNumber()
-                )
-            );
-            messageHelper.setText(
-                String.format(
-                    """
-                        Hi, %s %s,
-                        
-                        Your order #%s has been cancelled!
-                        
-                        Best regards,
-                        Mitohondriyaa
-                        """,
-                    inventoryRejectedEvent.getFirstName().toString(),
-                    inventoryRejectedEvent.getLastName().toString(),
-                    inventoryRejectedEvent.getOrderNumber()
-                )
-            );
-        };
+                messageHelper.setFrom("mitohondriyaa@gmail.com");
+                messageHelper.setTo(inventoryRejectedEvent.getEmail().toString());
+                messageHelper.setSubject(
+                    String.format(
+                        "Your order #%s has been cancelled!",
+                        inventoryRejectedEvent.getOrderNumber()
+                    )
+                );
+                messageHelper.setText(
+                    String.format(
+                        """
+                            Hi, %s %s,
+                            
+                            Your order #%s has been cancelled!
+                            
+                            Best regards,
+                            Mitohondriyaa
+                            """,
+                        inventoryRejectedEvent.getFirstName().toString(),
+                        inventoryRejectedEvent.getLastName().toString(),
+                        inventoryRejectedEvent.getOrderNumber()
+                    )
+                );
+            };
 
-        mailSender.send(messagePreparator);
+            mailSender.send(messagePreparator);
+        }
     }
 }
