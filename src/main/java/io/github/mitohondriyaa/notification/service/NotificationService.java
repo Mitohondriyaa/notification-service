@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class NotificationService {
     private final JavaMailSender mailSender;
+    private final RedisService redisService;
 
     @KafkaListener(topics = "inventory-reserved")
     public void orderPlaced(InventoryReservedEvent inventoryReservedEvent) {
