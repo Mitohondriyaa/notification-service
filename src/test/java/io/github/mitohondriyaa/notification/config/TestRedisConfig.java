@@ -1,18 +1,20 @@
 package io.github.mitohondriyaa.notification.config;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
-@Configuration
-@Profile("!test")
-public class RedisConfig {
+@TestConfiguration
+public class TestRedisConfig {
+    @Value("${redis.port}")
+    private Integer port;
+
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {
-        return new LettuceConnectionFactory("localhost", 6381);
+        return new LettuceConnectionFactory("localhost", port);
     }
 
     @Bean
